@@ -11,8 +11,6 @@ class PokemonsPaginated {
   factory PokemonsPaginated.fromJson(Map<String, dynamic> json) {
     List<dynamic> l = json['results'];
 
-    print(l);
-
     return PokemonsPaginated(
       count: json['count'],
       next: json['next'],

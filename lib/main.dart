@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pokedex/models/pokemons_paginated.dart';
+import 'package:flutter_pokedex/widgets/pokemon_list.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -40,7 +41,9 @@ class _MainScreenState extends State<MainScreen> {
                 return Text('${snapshot.error}');
               }
 
-              return Text('${snapshot.data.count}');
+              return PokemonList(
+                pokemons: snapshot.data.results,
+              );
             },
           ),
         ),
@@ -50,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 Future<PokemonsPaginated> fetchPokemons() async {
-  final response = await http.get('https://pokeapi.co/api/v2/pokemon');
+  final response = await http.get('https://pokeapi.co/api/v2/pokemon?limit=25');
 
   if (response.statusCode == 200) {
     return PokemonsPaginated.fromJson(json.decode(response.body));
