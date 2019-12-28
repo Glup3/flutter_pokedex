@@ -17,8 +17,12 @@ class PokemonDetails extends StatelessWidget {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              border: Border.all(),
-            ),
+                border: Border(
+              bottom: BorderSide(
+                color: Colors.blue,
+                width: 2,
+              ),
+            )),
             child: FadeInImage.memoryNetwork(
               imageScale: 0.5,
               placeholder: kTransparentImage,
@@ -28,6 +32,7 @@ class PokemonDetails extends StatelessWidget {
                   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png',
             ),
           ),
+          SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

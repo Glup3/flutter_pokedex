@@ -27,6 +27,7 @@ class PokemonListTile extends StatelessWidget {
         child: ListTile(
           contentPadding: EdgeInsets.all(10),
           leading: FadeInImage.memoryNetwork(
+            width: 70,
             placeholder: kTransparentImage,
             image:
                 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png',
