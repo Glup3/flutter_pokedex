@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_pokedex/data/pokemon_service.dart';
+import 'package:flutter_pokedex/data/webservice.dart';
 import 'package:flutter_pokedex/models/pokemons_paginated.dart';
 import 'package:flutter_pokedex/widgets/pokemon_list.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 void main() => runApp(MainScreen());
 
@@ -12,12 +13,12 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  Future<PokemonsPaginated> pokemons;
+  Future<PokemonsPaginated> _pokemons;
 
   @override
   void initState() {
     super.initState();
-    pokemons = fetchPokemons();
+    _pokemons = Webservice().load(PokemonService.pokemons(limit: 9));
   }
 
   @override
@@ -30,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         body: Container(
           child: FutureBuilder<PokemonsPaginated>(
-            future: pokemons,
+            future: _pokemons,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return CircularProgressIndicator();
@@ -49,15 +50,5 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
     );
-  }
-}
-
-Future<PokemonsPaginated> fetchPokemons() async {
-  final response = await http.get('https://pokeapi.co/api/v2/pokemon?limit=25');
-
-  if (response.statusCode == 200) {
-    return PokemonsPaginated.fromJson(json.decode(response.body));
-  } else {
-    throw Exception('Failed to load Pokemons');
   }
 }

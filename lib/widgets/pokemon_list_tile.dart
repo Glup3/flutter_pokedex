@@ -11,16 +11,19 @@ class PokemonListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     int id = getIDFromURL(pokemon.url);
 
-    return Container(
+    return Material(
       color: id % 2 == 0 ? Colors.blue[200] : Colors.white,
-      child: ListTile(
-        contentPadding: EdgeInsets.all(10),
-        leading: FadeInImage.memoryNetwork(
-          placeholder: kTransparentImage,
-          image:
-              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png',
+      child: InkWell(
+        onTap: () {},
+        child: ListTile(
+          contentPadding: EdgeInsets.all(10),
+          leading: FadeInImage.memoryNetwork(
+            placeholder: kTransparentImage,
+            image:
+                'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png',
+          ),
+          title: Text('#$id ${capitalizeFirstCharacter(pokemon.name)}'),
         ),
-        title: Text('#$id ${capitalizeFirstCharacter(pokemon.name)}'),
       ),
     );
   }
