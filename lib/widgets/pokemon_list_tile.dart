@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pokedex/models/api_resource.dart';
 import 'package:flutter_pokedex/screens/pokemon_detail_screen.dart';
+import 'package:flutter_pokedex/utils/string_utils.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class PokemonListTile extends StatelessWidget {
@@ -11,6 +12,7 @@ class PokemonListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int id = getIDFromURL(pokemon.url);
+    String name = capitalizeFirstCharacter(pokemon.name);
 
     return Material(
       color: id % 2 == 0 ? Colors.blue[200] : Colors.white,
@@ -19,7 +21,7 @@ class PokemonListTile extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => PokemonDetailScreen(id: id)),
+                builder: (context) => PokemonDetailScreen(id: id, name: name)),
           );
         },
         child: ListTile(
@@ -29,7 +31,7 @@ class PokemonListTile extends StatelessWidget {
             image:
                 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png',
           ),
-          title: Text('#$id ${capitalizeFirstCharacter(pokemon.name)}'),
+          title: Text('#$id $name'),
         ),
       ),
     );
@@ -40,8 +42,4 @@ int getIDFromURL(String url) {
   List<String> parts = url.split('/');
 
   return int.parse(parts[parts.length - 2]);
-}
-
-String capitalizeFirstCharacter(String s) {
-  return '${s[0].toUpperCase()}${s.substring(1)}';
 }
