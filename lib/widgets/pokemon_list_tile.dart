@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pokedex/models/api_resource.dart';
+import 'package:flutter_pokedex/screens/pokemon_detail_screen.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class PokemonListTile extends StatelessWidget {
@@ -14,7 +15,13 @@ class PokemonListTile extends StatelessWidget {
     return Material(
       color: id % 2 == 0 ? Colors.blue[200] : Colors.white,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PokemonDetailScreen(id: id)),
+          );
+        },
         child: ListTile(
           contentPadding: EdgeInsets.all(10),
           leading: FadeInImage.memoryNetwork(
